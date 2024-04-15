@@ -36,5 +36,10 @@ async def ola(ctx: commands.Context):
 async def on_ready():
     print("ESTOU VIVO!!!")
 
+# Teste de embed
+@bot.command()
+async def teste1(ctx: commands.Context):
+    meu_embed = discord.Embed(title="Olá mundo", description="ESTOU VIVO MUAHAHHAHAHAHAHA")
+    await ctx.reply(embed=meu_embed)
 
 bot.run(token)
