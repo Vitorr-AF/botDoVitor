@@ -9,8 +9,8 @@ permissoes.message_content = True
 permissoes.members = True
 
 
-#define o token do bot e o prefixo de comandos
-token = 'seu token aqui'
+#define o token do bot usando input e o prefixo de comandos
+token = input("Seu token aqui: ")
 bot = commands.Bot(command_prefix=".", intents=permissoes)
 
 # Comando de rolar dado (.dado)
