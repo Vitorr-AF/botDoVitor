@@ -1,15 +1,19 @@
+# Importação das bibliotecas random e discord
 import discord
 from discord.ext import commands
 import random
 
+# Permissões do bot (permissões padrões além de ver mensagens e usuários)
 permissoes = discord.Intents.default()
 permissoes.message_content = True
 permissoes.members = True
-#define o token do bot
-token = 'seu token aqui'
 
+
+#define o token do bot e o prefixo de comandos
+token = 'seu token aqui'
 bot = commands.Bot(command_prefix=".", intents=permissoes)
 
+# Comando de rolar dado (.dado)
 @bot.command()
 async def dado(ctx: commands.Context, numLados: int):
     try:
@@ -21,16 +25,13 @@ async def dado(ctx: commands.Context, numLados: int):
     except ValueError:
         await ctx.reply("Digite um número válido (positivo e sem vírgula)")
 
-
-
-
-
+# Comando .ola
 @bot.command()
 async def ola(ctx: commands.Context):
     user = ctx.author
     await ctx.reply(f'Olá {user.display_name}')
 
-
+# Mensagem de inicialização
 @bot.event
 async def on_ready():
     print("ESTOU VIVO!!!")
