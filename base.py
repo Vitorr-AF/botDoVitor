@@ -25,21 +25,30 @@ async def dado(ctx: commands.Context, numLados: int):
     except ValueError:
         await ctx.reply("Digite um número válido (positivo e sem vírgula)")
 
-# Comando .ola
-@bot.command()
-async def ola(ctx: commands.Context):
-    user = ctx.author
-    await ctx.reply(f'Olá {user.display_name}')
+@bot.event
+async def on_message(message):
+    if "escola dominicana" in message.content.lower():
+        await message.reply("Não falamos desse assunto, APAGUE")
+    await bot.process_commands(message)
+
 
 # Mensagem de inicialização
 @bot.event
 async def on_ready():
     print("ESTOU VIVO!!!")
 
+# Comando .ola
+@bot.command()
+async def ola(ctx: commands.Context):
+    user = ctx.author
+    await ctx.reply(f'Olá {user.display_name}')
+
+
 # Teste de embed
 @bot.command()
 async def teste1(ctx: commands.Context):
     meu_embed = discord.Embed(title="Olá mundo", description="ESTOU VIVO MUAHAHHAHAHAHAHA")
     await ctx.reply(embed=meu_embed)
+
 
 bot.run(token)
