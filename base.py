@@ -13,6 +13,14 @@ permissoes.members = True
 token = input("Seu token aqui: ")
 bot = commands.Bot(command_prefix=".", intents=permissoes)
 
+
+#.help (mostra a lista de comandos)
+@bot.command()
+async def ajuda(ctx: commands.Context):
+    help_m= discord.Embed(title="Lista de comandos atuais:", description=".ajuda(mostra a lista de comandos)\n.dado(joga um dado do número de lados fornecido)\n.ola(o bot manda um oi)\n\nO bot pode ter algumas reações secretas dependendo do que você mandar")
+    await ctx.reply(embed=help_m)
+
+
 # Comando de rolar dado (.dado)
 @bot.command()
 async def dado(ctx: commands.Context, numLados: int):
@@ -29,6 +37,8 @@ async def dado(ctx: commands.Context, numLados: int):
 async def on_message(message):
     if "escola dominicana" in message.content.lower():
         await message.reply("Não falamos desse assunto, APAGUE")
+    elif "69" in message.content:
+        await message.add_reaction("🤤")
     await bot.process_commands(message)
 
 
@@ -42,13 +52,6 @@ async def on_ready():
 async def ola(ctx: commands.Context):
     user = ctx.author
     await ctx.reply(f'Olá {user.display_name}')
-
-
-# Teste de embed
-@bot.command()
-async def teste1(ctx: commands.Context):
-    meu_embed = discord.Embed(title="Olá mundo", description="ESTOU VIVO MUAHAHHAHAHAHAHA")
-    await ctx.reply(embed=meu_embed)
 
 
 bot.run(token)
