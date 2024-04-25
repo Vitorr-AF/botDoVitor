@@ -10,7 +10,8 @@ permissoes.members = True
 
 
 #define o token do bot usando input e o prefixo de comandos
-token = input("Seu token aqui: ")
+# token = input("Seu token aqui: ")
+token = input('Seu token: ')
 
 bot = commands.Bot(command_prefix=".", intents=permissoes)
 
@@ -22,13 +23,13 @@ async def ajuda(ctx: commands.Context):
     Lista de comandos atuais:
     .ajuda: Mostra a lista de comandos.
     .dado: Joga um dado do número de lados fornecido.
-    .ola: O bot manda um oi.
+    .ola: O bot manda um oi (é mais pra teste msm).
     .calculadora: calcula dois números 
     
     O bot pode ter algumas reações secretas dependendo do que você mandar.
     """
-    help_m= discord.Embed(title="Lista de comandos atuais:", description= help_descricao)
-    help_m= discord.Color.blue()
+    help_m = discord.Embed(title="Lista de comandos atuais:", description=help_descricao, color=discord.Color.blue())
+
     await ctx.reply(embed=help_m)
 
 
@@ -106,12 +107,30 @@ async def info(ctx: commands.Context):
     view.add_item(botao)
     await ctx.reply(view=view)
 
+
+cont={}
 @bot.event
 async def on_message(message):
-    if "escola dominicana" in message.content.lower():
+    # Converta a mensagem para minúsculas
+    mensagem_lower = message.content.lower()
+    
+    # Verifique se a palavra específica está na mensagem
+    if 'escola dominicana' in mensagem_lower:
         await message.reply("Não falamos desse assunto, APAGUE")
-    elif "69" in message.content:
+    elif '69' in mensagem_lower:
         await message.add_reaction("🤤")
+    
+    # Verifique se a palavra 'beetlejuice' foi mencionada três vezes seguidas
+    if 'beetlejuice' in mensagem_lower or 'beetle juice' in mensagem_lower:
+        # Atualize o contador para o usuário atual
+        cont[message.author.id] = cont.get(message.author.id, 0) + mensagem_lower.count('beetlejuice') + mensagem_lower.count('beetle juice')
+        
+        # Se a palavra específica for mencionada três vezes, faça o bot reagir
+        if cont[message.author.id] >= 3:
+            await message.add_reaction("🪲")
+            await message.add_reaction("🧃")
+            cont[message.author.id] = 0
+
     await bot.process_commands(message)
 
 
